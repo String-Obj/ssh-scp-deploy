@@ -2,6 +2,7 @@
 DIR=`pwd`
 echo "🔑 Adding ssh key..." &&
 echo "${INPUT_KEY}" > $DIR/test.key &&
+chmod 600 $DIR/test.key &&
 echo "🔐 Added ssh key";
 
 PRE_UPLOAD=${INPUT_PRE_UPLOAD}
@@ -16,7 +17,6 @@ if [ ! -z "$PRE_UPLOAD" ]; then
 fi
 
 {
-    echo -i $DIR/test.key ${INPUT_SSH_OPTIONS} ${INPUT_SCP_OPTIONS} -P ${INPUT_PORT} -r ${INPUT_LOCAL} ${INPUT_USER}@${INPUT_HOST}:${INPUT_REMOTE};
     echo "🚚 Uploading via scp..." &&
     scp -i $DIR/test.key ${INPUT_SSH_OPTIONS} ${INPUT_SCP_OPTIONS} -P "${INPUT_PORT}" -r ${INPUT_LOCAL} ${INPUT_USER}@${INPUT_HOST}:"${INPUT_REMOTE}" && 
     echo "🙌 Uploaded via scp"

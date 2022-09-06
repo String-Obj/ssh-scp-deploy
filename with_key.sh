@@ -1,8 +1,7 @@
 #!/bin/sh
-
+DIR=`pwd`
 echo "🔑 Adding ssh key..." &&
-eval $(ssh-agent -s) &&
-ssh-add <(echo "${INPUT_KEY}") && 
+echo "${INPUT_KEY}" > $DIR/test.key &&
 echo "🔐 Added ssh key";
 
 PRE_UPLOAD=${INPUT_PRE_UPLOAD}
@@ -19,7 +18,7 @@ fi
 {
     echo ${INPUT_SSH_OPTIONS} ${INPUT_SCP_OPTIONS} -P ${INPUT_PORT} -r ${INPUT_LOCAL} ${INPUT_USER}@${INPUT_HOST}:${INPUT_REMOTE};
     echo "🚚 Uploading via scp..." &&
-    scp ${INPUT_SSH_OPTIONS} ${INPUT_SCP_OPTIONS} -P "${INPUT_PORT}" -r ${INPUT_LOCAL} ${INPUT_USER}@${INPUT_HOST}:"${INPUT_REMOTE}" && 
+    scp -i $DIR/test.key ${INPUT_SSH_OPTIONS} ${INPUT_SCP_OPTIONS} -P "${INPUT_PORT}" -r ${INPUT_LOCAL} ${INPUT_USER}@${INPUT_HOST}:"${INPUT_REMOTE}" && 
     echo "🙌 Uploaded via scp"
 } || {
     echo "😢 Something went wrong during upload" && exit 1 

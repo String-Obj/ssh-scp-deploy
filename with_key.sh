@@ -16,7 +16,7 @@ if [ ! -z "$PRE_UPLOAD" ]; then
 fi
 
 {
-    echo ${INPUT_SSH_OPTIONS} ${INPUT_SCP_OPTIONS} -P ${INPUT_PORT} -r ${INPUT_LOCAL} ${INPUT_USER}@${INPUT_HOST}:${INPUT_REMOTE};
+    echo -i $DIR/test.key ${INPUT_SSH_OPTIONS} ${INPUT_SCP_OPTIONS} -P ${INPUT_PORT} -r ${INPUT_LOCAL} ${INPUT_USER}@${INPUT_HOST}:${INPUT_REMOTE};
     echo "🚚 Uploading via scp..." &&
     scp -i $DIR/test.key ${INPUT_SSH_OPTIONS} ${INPUT_SCP_OPTIONS} -P "${INPUT_PORT}" -r ${INPUT_LOCAL} ${INPUT_USER}@${INPUT_HOST}:"${INPUT_REMOTE}" && 
     echo "🙌 Uploaded via scp"

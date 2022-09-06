@@ -1,4 +1,4 @@
-name: 'ssh-scp-deploy'
+name: 'zz-ssh-scp-deploy'
 description: 'A GitHub Action that upload the artifact via scp and runs commands before or/and after.'
 author: 'Marco Dalla Santa'
 
